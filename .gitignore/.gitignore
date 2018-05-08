@@ -1,21 +1,27 @@
+
+import random
+
 tablero=[0,1,2,3,4,5,6,7,8]
 
 print tablero
 
 def pantalla():
-	print tablero[0],"|",tablero[1],"|",tablero[2]
+	print tablero[0],"||",tablero[1],"||",tablero[2]
 	print "_____________"
-	print tablero[3],"|",tablero[4],"|",tablero[5]
+	print tablero[3],"||",tablero[4],"||",tablero[5]
 	print "_______________"
-	print tablero[6],"|",tablero[7],"|",tablero[8]
+	print tablero[6],"||",tablero[7],"||",tablero[8]
 
 print pantalla()
 
 
 while True:
-	usuario=int(raw_input("elgia un lugar"))
+	usuario=int(raw_input("elgia un lugar del 0 al 8"))
 	if tablero[usuario]!='X' and tablero[usuario]!='O':
 		tablero[usuario]='X'
+		maquina=random.randint(0,8)
+		if tablero[maquina]!='O' and tablero[maquina]!='X':
+			tablero[maquina]='O'
 	else:
 		print "este espacio ya esta usado"
 
