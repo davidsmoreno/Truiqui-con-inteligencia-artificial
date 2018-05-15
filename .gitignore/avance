@@ -89,3 +89,34 @@ def estaocupado(posicion):
 	return True
 
 
+'x'
+
+def evaluacion(pos):
+    posiblesjugadas=[]
+    #filas
+    for j in range pos:
+        posiblesjugadas.append(set((j)))
+
+    #columnas 
+    for j in range(3):
+        for k in range(3):
+            posiblesjugadas.append(set(([k][j])))
+    #diagonales        
+    for m in range(3):
+        posiblesjugadas.append(set([m][m]))
+
+    for m in range(3):
+        posiblesjugadas.append(set([m][2-m]))
+
+    for l in posiblesjugadas:
+        if l==set(['X']):
+            return "ganajugador1"
+        elif l==set(['O']):
+            return "cpu gana"
+    return "Empate"
+        
+        
+            
+        
+
+
