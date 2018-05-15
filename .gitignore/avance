@@ -81,3 +81,11 @@ def base3(m):
                    print binaenvi
                    return binaenvi
 
+
+def estaocupado(posicion):
+	for i in posicion:
+		if '_' in i:
+			return False
+	return True
+
+
