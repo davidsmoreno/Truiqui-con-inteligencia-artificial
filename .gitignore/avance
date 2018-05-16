@@ -1,6 +1,7 @@
 import random
 
 tablero=[0,1,2,3,4,5,6,7,8]
+m=[0,0,0,0,0,0,0,0,0]
 
 print tablero
 
@@ -12,6 +13,30 @@ def pantalla():
 	print tablero[6],"||",tablero[7],"||",tablero[8]
 
 print pantalla()
+
+def CPU():
+        if tablero[0]=='O' and tablero[1]=='O' and tablero[2]=='O':
+               return "Gana la CPU"
+        elif tablero[3]=='O' and tablero[4]=='O' and tablero[5]=='O':
+                return "Gana la CPU"
+        elif tablero[6]=='O' and tablero[7]=='O' and tablero[8]=='O':
+                return "Gana la CPU"
+        #
+        elif tablero[0]=='O' and tablero[4]=='O' and tablero[8]=='O':
+                return "Gana la CPU"
+        elif tablero[6]=='O' and tablero[4]=='O' and tablero[2]=='O':
+                return "Gana la CPU"
+        #
+        elif tablero[0]=='O' and tablero[3]=='O' and tablero[6]=='O':
+                return "Gana la CPU"
+        elif tablero[1]=='O' and tablero[4]=='O' and tablero[7]=='O':
+                return "Gana la CPU"
+        elif tablero[2]=='O' and tablero[5]=='O' and tablero[8]=='O':
+                return "Gana la CPU"
+        #
+        else:
+                return "Gana el jugador"
+        return "Empate"
 
 def gana():
     #Filas
@@ -36,34 +61,27 @@ def gana():
     #Default
     return False
 
-while gana()==False:
-	usuario=int(raw_input("Eliga un lugar del 0 al 8: "))
-	if tablero[usuario]!='X' and tablero[usuario]!='O':
-		tablero[usuario]='X'
-		maquina=random.randint(0,8)
-                while tablero[maquina]=='O':
-                        maquina=random.randint(0,8)
-                        if tablero[maquina]!='O' and tablero[maquina]!='X':
-                            tablero[maquina]='O'
-	else:
-		print "Este espacio ya esta usado"
-		print "  "
-
-	pantalla()
-print gana()
-
-
-
+def revi_evalua():
+        for i in (0,1,2,3,4,5,6,7,8):
+                if tablero[i]=='X':
+                        m.pop(i)
+                        m.insert(i,-1)
+                elif tablero[i]=='O':
+                        m.pop(i)
+                        m.insert(i,1)
+                else:
+                        m.pop(i)
+                        m.insert(i,0)
+        return m
 
 def base3(m):
                    print m,"m"
                    for i in range(len(m)):
                        if m[i]==-1:
                             m[i]=2
-                   print m,"vecalt"
                    suma=0
                    pot=3**7
-                   binaenvi=range(13*(len(vec)/8))
+                   binaenvi=range(13*(len(m)/8))
                    j=0
                    gru=1
                    for i in range(len(m)):
@@ -78,43 +96,111 @@ def base3(m):
                                       suma=0
                                       pot=3**7
                                   
-                   print binaenvi
                    return binaenvi
 
+def inversabase3(bina13):
+       
+                   suma=0
+                   pot=2**12
+                   binaenvi=range(8*(len(bina13)/13))
+                   j=0
+                   gru=1
+                   for i in range(len(bina13)):
+                                  suma=suma+(bina13[i]*pot)
+                                  pot=pot/2
+                                  if (i+1)%13==0:
+                                      print suma,"suma"
+                                      for k in range(8):
+                                          binaenvi[8*gru-k-1]=suma%3
+                                          suma=suma/3
+                                      gru=gru+1
+                                      suma=0
+                                      pot=2**12
+                   for i in range(len(binaenvi)):
+                           if binaenvi[i]==2:
+                                   binaenvi[i]=-1
+                   print binaenvi,"binaenvi base 3 inversa"
+                   return binaenvi
 
+while gana()==False:
+    maquina = random.randint(0,8)
+    if tablero[maquina]=='X' or tablero[maquina]=='O':
+        maquina = random.randint(0,8)
+        if tablero[maquina]=='X' or tablero[maquina]=='O':
+            maquina = random.randint(0,8)
+        else:
+            tablero[maquina]='O'
+            print"************************************"
+    else:
+        tablero[maquina]='O'
+        print"************************************"
+    pantalla()
+    revi_evalua()
+    base3(m)
+
+        
+def poner():
+	            
+	usuario=int(raw_input("Eliga un lugar del 0 al 8: "))
+    	if tablero[usuario]=='X' or tablero[usuario]=='O':
+        	print"Este espacio ya esta usado"
+        usuario=int(raw_input("Eliga un lugar del 0 al 8: "))
+        if tablero[usuario]=='X' or tablero[usuario]=='O':
+            print"Este espacio ya esta usado"
+        else:
+            tablero[usuario]='X'
+            print"************************************"
+    else:
+        tablero[usuario]='X'
+    pantalla()
+    revi_evalua()
+    base3(m)
+    print"************************************"
+
+        
+if gana()==True:
+        print CPU()
+        
 def estaocupado(posicion):
 	for i in posicion:
-		if '_' in i:
+		if posicion[i]!='X' or posicion[i]!='O':
 			return False
 	return True
 
 
-'x'
 
-def evaluacion(pos):
-    posiblesjugadas=[]
-    #filas
-    for j in range pos:
-        posiblesjugadas.append(set((j)))
 
-    #columnas 
-    for j in range(3):
-        for k in range(3):
-            posiblesjugadas.append(set(([k][j])))
-    #diagonales        
-    for m in range(3):
-        posiblesjugadas.append(set([m][m]))
 
-    for m in range(3):
-        posiblesjugadas.append(set([m][2-m]))
 
-    for l in posiblesjugadas:
-        if l==set(['X']):
-            return "ganajugador1"
-        elif l==set(['O']):
-            return "cpu gana"
-    return "Empate"
-        
+
+def configuraciones():
+	G=[]
+	P=[]
+	while gana()==False:
+		random1 = random.randint(0,8)
+		random2=random.randint(0,8)
+		if tablero[random1]!='X' and tablero[random1]!='O':
+			tablero[random1]=='X'
+			G.append(revi_evalua())
+			base3(G)
+		elif tablero[random2]!='O' and tablero[random2]!='X':
+			tablero[random2]=='O'
+			P.append(revi_evalua())
+			base3(P)
+		else:
+			gana()==True
+	return G
+	print G
+	return P
+	print P
+			
+
+
+configuraciones()		
+		
+		
+	
+	
         
             
         
