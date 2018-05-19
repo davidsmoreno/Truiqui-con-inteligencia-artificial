@@ -186,6 +186,38 @@ def evaluacion(pos):
             return "cpu gana"
     return "Empate"
 
+def buenajugada(pos):
+	esbuena = False
+	for i in pos:
+		for j in pos:
+			for a in pos:
+				if pos[i]=="X" and pos[j]=="X" and pos[a]=="_":
+					return a
+					esbuena = True
+					break
+				if pos[a]=="X" and pos[j]=="X" and pos[i]=="_":
+					return i
+					esbuena = True
+					break
+				if pos[i]="X" and pos[a]=="X" and pos[j]=="_":
+					return j
+					esbuena = True
+					break
+	for i in pos:
+		for j in pos:
+			for a in pos:
+				if pos[i]=="O" and pos[j]=="O" and pos[a]=="_":
+					return a
+					esbuena = True
+					break
+				if pos[a]=="O" and pos[j]=="O" and pos[i]=="_":
+					return i
+					esbuena = True
+					break
+				if pos[i]="O" and pos[a]=="O" and pos[j]=="_":
+					return j
+					esbuena = True
+					break
 
 
 
