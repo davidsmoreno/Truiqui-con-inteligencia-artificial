@@ -1,0 +1,28 @@
+import random
+jugadorp=''
+jugadorm=''
+
+
+def elegir_X_o_O(jugadorp,jugadorm):
+	jugadorp=raw_input("quiere ser x o O")
+	while jugadorp not in ('X','O'):
+		print ("elija otra vez")
+		jugadorp=raw_input("quiere ser X o O")
+	if jugadorp=='X'
+		print "es su turno"
+		jugadorm='O'
+	else:
+		print "es el turno de la mquina"
+		jugadorm='X'
+	return jugadorm,jugadorp
+
+def quienvaprimero():
+	turno=None
+	while turno not in ('Si','No'):
+		turno=raw_input("quiere comenzar en primer lugar")
+		if turno=='Si':
+			return 1
+		elif turno=='No'
+			return 0
+		else:
+			print "es invalido"
