@@ -1,6 +1,7 @@
 import random
 jugadorp=''
 jugadorm=''
+vacio=''
 
 
 def elegir_X_o_O(jugadorp,jugadorm):
@@ -26,3 +27,26 @@ def quienvaprimero():
 			return 0
 		else:
 			print "es invalido"
+
+def estaocupado(pos):
+	for i in range(len(pos)):
+		if pos[i]==0 :
+			return False
+	return True
+
+def gana(jugadorp,jugadorm,m):
+	mdeganar=((0,1,2),(3,4,5),(6,7,8),(0,3,6),(1,4,7),(2,5,8),(0,4,8),(2,4,6))
+	for i in mdeganar:
+		if m[i[0]]==m[i[1]]=m[i[2]] !=vacio:
+			ganador=new[i[0]]
+			if ganador==jugadorp:
+				return 1
+			elif ganador==jugadorm:
+				return 0
+			if vacio not in m:
+				return 'Empate'
+	if vacio not in m:
+		return 'Empate'
+	return None
+		
+
