@@ -1,7 +1,11 @@
 import random
 
+
 tablero=[0,1,2,3,4,5,6,7,8]
 m=[0,0,0,0,0,0,0,0,0]
+foo = [1,3,5,7]
+random = random.choice(foo)
+
 
 print tablero
 
@@ -16,30 +20,79 @@ def pantalla():
 
 print pantalla()
 
+def buenajugada(pos):
+	esbuena = False
+	for i in pos:
+		for j in pos:
+			for a in pos:
+				if pos[i]==1 and pos[j]==1 and pos[a]==0:
+					return a
+					esbuena = True
+					break
+				if pos[a]==1 and pos[j]==1 and pos[i]==0:
+					return i
+					esbuena = True
+					break
+				if pos[i]==1 and pos[a]==1 and pos[j]==0:
+					return j
+					esbuena = True
+					break
+	for i in pos:
+		for j in pos:
+			for a in pos:
+				if pos[i]==-1 and pos[j]==-1 and pos[a]==0:
+					return a
+					esbuena = True
+					break
+				if pos[a]==-1 and pos[j]==-1 and pos[i]==0:
+					return i
+					esbuena = True
+					break
+				if pos[i]==-1 and pos[a]==-1 and pos[j]==0:
+					return j
+					esbuena = True
+					break
+				
+	if pos[0]==pos[8]==-1 or pos[2]==pos[6]==-1:
+                while pos[random]==-1 or pos[random]==1:
+                        random= random.choice(foo)
+                return random
+                esbuena=True
+
+        if pos[4]==-1:
+                randomp = random.choice([0,2,6,8])
+                while pos[randomp]==-1 or pos[randomp]==1:
+                        randomp = random.choice([0,2,6,8])
+                return randomp
+                esbuena=True
+                
+	return esbuena
+
+#Funcion que permite saber quien gano
 def CPU():
-        if tablero[0]=='O' and tablero[1]=='O' and tablero[2]=='O':
+        if tablero[0]=='X' and tablero[1]=='X' and tablero[2]=='X':
                return "Gana la CPU"
-        elif tablero[3]=='O' and tablero[4]=='O' and tablero[5]=='O':
+        elif tablero[3]=='X' and tablero[4]=='X' and tablero[5]=='X':
                 return "Gana la CPU"
-        elif tablero[6]=='O' and tablero[7]=='O' and tablero[8]=='O':
-                return "Gana la CPU"
-        #
-        elif tablero[0]=='O' and tablero[4]=='O' and tablero[8]=='O':
-                return "Gana la CPU"
-        elif tablero[6]=='O' and tablero[4]=='O' and tablero[2]=='O':
+        elif tablero[6]=='X' and tablero[7]=='X' and tablero[8]=='X':
                 return "Gana la CPU"
         #
-        elif tablero[0]=='O' and tablero[3]=='O' and tablero[6]=='O':
+        elif tablero[0]=='X' and tablero[4]=='X' and tablero[8]=='X':
                 return "Gana la CPU"
-        elif tablero[1]=='O' and tablero[4]=='O' and tablero[7]=='O':
+        elif tablero[6]=='X' and tablero[4]=='X' and tablero[2]=='X':
                 return "Gana la CPU"
-        elif tablero[2]=='O' and tablero[5]=='O' and tablero[8]=='O':
+        #
+        elif tablero[0]=='X' and tablero[3]=='X' and tablero[6]=='X':
+                return "Gana la CPU"
+        elif tablero[1]=='X' and tablero[4]=='X' and tablero[7]=='X':
+                return "Gana la CPU"
+        elif tablero[2]=='X' and tablero[5]=='X' and tablero[8]=='X':
                 return "Gana la CPU"
         #
         else:
                 return "Gana el jugador"
-        return "Empate"
 
+#Funcion que evalua si alguien completo 3 casillas
 def gana():
     #Filas
     if tablero[0]==tablero[1] and tablero[1]==tablero[2]:
@@ -63,12 +116,26 @@ def gana():
     #Default
     return False
 
+#Revisa si hay empate
+def paraempate(pos):
+        contador=0
+        for i in pos:
+            if pos[i]==1 or pos[i]==-1:
+                    contador +=1
+                    
+        while contador<8:
+                return False
+                contador=0
+        if contador==8:
+                return True
+                
+#Creacion de la lista que permite saber las posiciones
 def revi_evalua():
         for i in (0,1,2,3,4,5,6,7,8):
-                if tablero[i]=='X':
+                if tablero[i]=='O':
                         m.pop(i)
                         m.insert(i,-1)
-                elif tablero[i]=='O':
+                elif tablero[i]=='X':
                         m.pop(i)
                         m.insert(i,1)
                 else:
@@ -99,6 +166,26 @@ def base3(m):
                                       pot=3**7
                                   
                    return binaenvi
+#TURNO
+def jugada_x(pos):
+        contador=0
+        for i in pos:
+                if pos[i]==1:
+                        contador+=1
+                elif pos[i]==-1:
+                        contador+=1
+
+        if contador%2==0:
+                return True
+        else:
+                return False
+
+def quienmueve(algo):
+        if algo==True:
+                print "Turno de la maquina"
+        else:
+                print "Turno del jugador"
+                        
 def inversabase3(bina13):
        
                    suma=0
@@ -123,17 +210,27 @@ def inversabase3(bina13):
                    print binaenvi,"binaenvi base 3 inversa"
                    return binaenvi
 
-while gana()==False:
+
+
+
+#Ejecucuion
+while gana()==False or paraempate(m)==False:
     maquina = random.randint(0,8)
     while tablero[maquina]=='X' or tablero[maquina]=='O':
-            maquina =random.randint(0,8)
+            if buenajugada(m)==True:
+                    tablero[buenajugada(tablero)]='X'
+            else:
+                    maquina =random.randint(0,8)
     if tablero[maquina]!='X' and tablero[maquina]!='O':
-            tablero[maquina]='O'
+            tablero[maquina]='X'
     pantalla()
-    gana()
+    if gana()==True or paraempate(m)==True:
+            break
     revi_evalua()
+    quienmueve(jugada_x(m))
     base3(m)
-    
+    paraempate(m)
+    buenajugada(m)
     
         
             
@@ -141,83 +238,33 @@ while gana()==False:
     while tablero[usuario]=='X' or tablero[usuario]=='O':
         usuario=int(raw_input("Eliga un lugar del 0 al 8: "))
     if tablero[usuario]!='X' and tablero[usuario]!='O':
-            tablero[usuario]='X'
+            tablero[usuario]='O'
     pantalla()
     gana()
+    if gana()==True:
+            break
     revi_evalua()
+    quienmueve(jugada_x(m))
     base3(m)
+    paraempate(m)
+    buenajugada(m)
 
     
     print"************************************"
 
-        
+#DICE EL GANADOR       
 if gana()==True:
         print CPU()
-        
-def estaocupado(posicion):
-	for i in posicion:
-		if posicion[i]!='X' or posicion[i]!='O':
-			return False
-	return True
+#Empate
+if paraempate(m)==True:
+        print "Empate"
 
 
-def evaluacion(pos):
-    posiblesjugadas=[]
-    #filas
-    for j in range(pos):
-        posiblesjugadas.append(set((j)))
-        print posiblejugadas
 
-    #columnas 
-    for j in range(3):
-        for k in range(3):
-            posiblesjugadas.append(set(([k][j])))
-    #diagonales        
-    for m in range(3):
-        posiblesjugadas.append(set([m][m]))
 
-    for m in range(3):
-        posiblesjugadas.append(set([m][2-m]))
 
-    for l in posiblesjugadas:
-        if l==set(['X']):
-            return "ganajugador1"
-        elif l==set(['O']):
-            return "cpu gana"
-    return "Empate"
 
-def buenajugada(pos):
-	esbuena = False
-	for i in pos:
-		for j in pos:
-			for a in pos:
-				if pos[i]=="X" and pos[j]=="X" and pos[a]=="_":
-					return a
-					esbuena = True
-					break
-				if pos[a]=="X" and pos[j]=="X" and pos[i]=="_":
-					return i
-					esbuena = True
-					break
-				if pos[i]="X" and pos[a]=="X" and pos[j]=="_":
-					return j
-					esbuena = True
-					break
-	for i in pos:
-		for j in pos:
-			for a in pos:
-				if pos[i]=="O" and pos[j]=="O" and pos[a]=="_":
-					return a
-					esbuena = True
-					break
-				if pos[a]=="O" and pos[j]=="O" and pos[i]=="_":
-					return i
-					esbuena = True
-					break
-				if pos[i]="O" and pos[a]=="O" and pos[j]=="_":
-					return j
-					esbuena = True
-					break
+
 
 
 
