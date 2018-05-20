@@ -48,5 +48,52 @@ def gana(jugadorp,jugadorm,m):
 	if vacio not in m:
 		return 'Empate'
 	return None
+	def jugadorp_mueve(jugadorp,m):
+	a=raw_input("donde quiere moverlo")
+	while True:
+		a=raw_input("elija del 1 al 8")
+		if m[int(a)]!=vacio:
+			a=raw_input("elija del 1 al 8")
+		else:
+			return int(a)
+
+def jugadorm_mueve(jugadorp,jugadorm,m):
+	mejoresj=[4,0,2,6,8]
+	lista=[]
+	for i in range(9):
+		if m[i]==vacio:
+			lista.append(i)
+	for i in lista:
+		m[i]=jugadorm
+		if gana(jugadorp,jugadorm,m)==0:
+			return i
+		m[i]=vacio
+	for i in lista:
+		m[i]=jugadorp
+		if gana(jugadorp,jugadorm,m)==1:
+			return i
+		m[i]=vacio
+
+	return int(lista[random.randrange(len(lista))])
+
+def ejecutable(jugadorp,jugadorm,m):
+
+	a=elegir_X_o_O(jugadorp,jugadorm)
+	jugadorp=a[0]
+	jugadorm=a[1]
+	b=quienvaprimero()
+	if b==1:
+		print "vas de primero"
+		dibujartablero(m)
+		jugadorp1(jugadorp,jugarorm,m)
+	elif b==0:
+		print "la maquina va primero"
+		dibujartablero(m)
+		jugadorm1(jugadorp,jugarorm,m)
+	else:
+		pass
+		
+ejecutable(jugadorp,jugadorm,m)
+		
 		
 
