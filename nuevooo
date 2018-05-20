@@ -2,18 +2,19 @@ import random
 jugadorp=''
 jugadorm=''
 vacio=''
+m=['','','','','','','','']
 
 
 def elegir_X_o_O(jugadorp,jugadorm):
-	jugadorp=raw_input("quiere ser x o O")
+	jugadorp=raw_input("quiere ser X o O")
 	while jugadorp not in ('X','O'):
 		print ("elija otra vez")
 		jugadorp=raw_input("quiere ser X o O")
-	if jugadorp=='X'
+	if jugadorp=='X':
 		print "es su turno"
 		jugadorm='O'
 	else:
-		print "es el turno de la mquina"
+		print "es el turno de la maquina"
 		jugadorm='X'
 	return jugadorm,jugadorp
 
@@ -23,22 +24,72 @@ def quienvaprimero():
 		turno=raw_input("quiere comenzar en primer lugar")
 		if turno=='Si':
 			return 1
-		elif turno=='No'
+		elif turno=='No':
 			return 0
 		else:
 			print "es invalido"
 
-def estaocupado(pos):
-	for i in range(len(pos)):
-		if pos[i]==0 :
-			return False
-	return True
+def dibujartablero(tablero):
+    
+   	print tablero[0],"|",tablero[1],"|",tablero[2]
+	print "----------"
+	print tablero[3],"|",tablero[4],"|",tablero[5]
+	print "----------"
+	print tablero[6],"|",tablero[7],"|",tablero[8]
+
+def jugador_p1(jugadorp, jugadorm, m):
+    while gana(jugadorp, jugadorm, m) is None:
+        move = jugadorp_mueve(jugadorp,m)
+        m[int(move)] = jugadorp
+        draw(m)
+        if gana(jugadorp, jugadorm, m) != None:
+            break
+        else:
+            pass
+        print "bueno"
+        p_move = jugadorm_mueve(jugadorp,jugadorm,m)
+        print p_move
+        m[int(p_move)] = jugadorm
+        draw(m)
+    q = gana(jugadorp, jugadorm, m)
+    if q == 1:
+        print "ganaste"
+    elif q == 0:
+        print "perdiste"
+    else:
+        print "es empate"
+
+def jugadorm1(jugadorp,jugarorm,m):
+    while not gana(jugadorp,jugarorm,m):
+        print "la rata"
+        p_move =jugadorm_mueve(jugadorp,jugarorm,m)
+        print p_move
+        m[p_move] = jugadorm
+        draw(m)
+        if gana(jugadorp,jugarorm,m) != None:
+            break
+        else:
+            pass
+        move = jugadorp_mueve(jugadorp,m)
+        m[int(move)] = jugadorp
+        draw(m)
+    q = gana(jugadorp, jugadorm, m)
+    if q == 1:
+        print "ganaste"
+    elif q == 0:
+        print "perdiste"
+    else:
+        print "Its tie man..."
+
+
+
+
 
 def gana(jugadorp,jugadorm,m):
 	mdeganar=((0,1,2),(3,4,5),(6,7,8),(0,3,6),(1,4,7),(2,5,8),(0,4,8),(2,4,6))
 	for i in mdeganar:
-		if m[i[0]]==m[i[1]]=m[i[2]] !=vacio:
-			ganador=new[i[0]]
+		if m[i[0]]==m[i[1]]==m[i[2]] !=vacio:
+			ganador=m[i[0]]
 			if ganador==jugadorp:
 				return 1
 			elif ganador==jugadorm:
@@ -48,7 +99,13 @@ def gana(jugadorp,jugadorm,m):
 	if vacio not in m:
 		return 'Empate'
 	return None
-	def jugadorp_mueve(jugadorp,m):
+
+
+
+
+		
+
+def jugadorp_mueve(jugadorp,m):
 	a=raw_input("donde quiere moverlo")
 	while True:
 		a=raw_input("elija del 1 al 8")
@@ -95,5 +152,9 @@ def ejecutable(jugadorp,jugadorm,m):
 		
 ejecutable(jugadorp,jugadorm,m)
 		
+		
+	
+
+
 		
 
