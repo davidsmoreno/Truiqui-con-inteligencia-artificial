@@ -80,7 +80,7 @@ def jugador_m1(jugadorp,jugarorm,m):
         else:
             pass
         jugada = jugadorp_mueve(jugadorp,m)
-        m[int(move)] = jugadorp
+        m[int(jugada)] = jugadorp
         dibujartablero(m)
     q = gana(jugadorp, jugadorm, m)
     if q == 1:
@@ -163,7 +163,6 @@ def ejecutable(jugadorp,jugadorm,m):
 		pass
 		
 ejecutable(jugadorp,jugadorm,m)
-
 		
 		
 	
