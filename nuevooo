@@ -1,6 +1,3 @@
-
-	
-
 import random
 
 jugadorp=''
@@ -52,9 +49,9 @@ def jugador_p1(jugadorp, jugadorm, m):
         else:
             pass
         print "bueno"
-        p_move = jugadorm_mueve(jugadorp,jugadorm,m)
-        print p_move
-        m[int(p_move)] = jugadorm
+        jugada = jugadorm_mueve(jugadorp,jugadorm,m)
+        print jugada
+        m[int(jugada)] = jugadorm
         dibujartablero(m)
     q = gana(jugadorp, jugadorm, m)
     if q == 1:
@@ -67,9 +64,9 @@ def jugador_p1(jugadorp, jugadorm, m):
 def jugador_m1(jugadorp,jugarorm,m):
     while not gana(jugadorp,jugarorm,m):
         print "la rata"
-        p_move =jugadorm_mueve(jugadorp,jugarorm,m)
-        print p_move
-        m[p_move] = jugadorm
+        jugada =jugadorm_mueve(jugadorp,jugarorm,m)
+        print jugada
+        m[jugada] = jugadorm
         dibujartablero(m)
         if gana(jugadorp,jugarorm,m) != None:
             break
@@ -84,7 +81,7 @@ def jugador_m1(jugadorp,jugarorm,m):
     elif q == 0:
         print "perdiste"
     else:
-        print "Its tie man..."
+        print "empate"
 
 
 
@@ -111,11 +108,11 @@ def gana(jugadorp,jugadorm,m):
 		
 
 def jugadorp_mueve(jugadorp,m):
-	a=raw_input("donde quiere moverlo del 1 al 8")
+	a=raw_input("donde quiere moverlo del 0 al 8")
 	while True:
-		a=raw_input("elija del 1 al 8")
+		a=raw_input("elija del 0 al 8")
 		if m[int(a)]!=vacio:
-			a=raw_input("elija del 1 al 8")
+			a=raw_input("elija del 0 al 8")
 		else:
 			return int(a)
 
@@ -127,12 +124,12 @@ def jugadorm_mueve(jugadorp,jugadorm,m):
 			lista.append(i)
 	for i in lista:
 		m[i]=jugadorm
-		if gana(jugadorp,jugadorm,m) is 0:
+		if gana(jugadorp,jugadorm,m)== 0:
 			return i
 		m[i]=vacio
 	for i in lista:
 		m[i]=jugadorp
-		if gana(jugadorp,jugadorm,m) is 1:
+		if gana(jugadorp,jugadorm,m)== 1:
 			return i
 		m[i]=vacio
 
@@ -156,6 +153,15 @@ def ejecutable(jugadorp,jugadorm,m):
 		pass
 		
 ejecutable(jugadorp,jugadorm,m)
+
+		
+		
+	
+
+
+
+
+
 		
 		
 
