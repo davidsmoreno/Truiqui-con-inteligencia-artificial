@@ -158,7 +158,7 @@ def ejecutable(jugadorp,jugadorm,m):
 	elif b==0:
 		print "la maquina va primero"
 		dibujartablero(m)
-		jugador_m1(jugadorp,jugarorm,m)
+		jugador_m1(jugadorp,jugadorm,m)
 	else:
 		pass
 		
